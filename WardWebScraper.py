@@ -11,13 +11,13 @@ soup = BeautifulSoup(r.content, "lxml")
 stufftocut = "Previous Chapter                                                                                        Next Chapter"
 comments = False
 chapterlist = soup.find_all('a')
-
 for i in range(22,125):#from table of contents go to each chapter
-        r2 = requests.get(chapterlist[i]["href"])
+        r2 = requests.get("https://www.parahumans.net" + chapterlist[i]["href"])
         soup2 = BeautifulSoup(r2.content, "lxml")
         content = soup2.find_all('p')
         file.write(str(soup2.find_all('h1', class_ = "entry-title")[0]))
-        print(str(soup2.find_all('h1', class_="entry-title")[0].get_text()))
+        #check that its working
+        #print(str(soup2.find_all('h1', class_="entry-title")[0].get_text()))
         for element in content:
             text = element.get_text()
             if ("Previous" in text)and comments == False:
